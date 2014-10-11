@@ -1,0 +1,36 @@
+<div class='row'>
+  <div class='span12'>
+    <h1>LPROC</h1>
+  </div>
+</div>
+
+<div class='row'>
+  <div class='span6 editor-panel'>
+    <!-- <textarea class='js-textentry'></textarea> -->
+    <div id='editor'></div>
+
+    <div class='buttons'>
+      <button class='js-send btn btn-primary'>Update</button>
+      <button class='js-template btn btn-default'>Template</button>
+
+      <div class='row user-buttons'>
+        <div class='span6 js-users'>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.Editor = ace.edit("editor");
+    // Editor.setTheme("ace/theme/twilight");
+    Editor.getSession().setTabSize(2);
+    Editor.getSession().setMode("ace/mode/java");
+    Editor.getSession().setUseSoftTabs(true);
+  </script>
+
+  <div class='span6'>
+    <canvas id='js-canvas' class='render'></canvas>
+    <div class='js-chat messages'>
+    </div>
+  </div>
+</div>
