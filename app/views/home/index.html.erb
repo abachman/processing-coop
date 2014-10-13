@@ -10,8 +10,13 @@
     <div id='editor'></div>
 
     <div class='buttons'>
-      <button class='js-send btn btn-primary'>Update</button>
-      <button class='js-template btn btn-default'>Template</button>
+      <div class="form-horizontal">
+        <button class='js-load btn btn-success'>Update</button>
+        <button class='js-send btn btn-primary'>Update and Push</button>
+        <select class='js-template-choose'>
+          <option>Select Template</option>
+        </select>
+      </div>
 
       <div class='row user-buttons'>
         <div class='span6 js-users'>
@@ -30,7 +35,7 @@
 
   <div class='span6'>
     <canvas id='js-canvas' class='render'></canvas>
-    <div class='js-chat messages'>
-    </div>
+    <video autoplay id="videostream" style='display:none;'></video>
+    <div class='js-chat messages'></div>
   </div>
 </div>

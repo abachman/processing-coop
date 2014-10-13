@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'home/index'
+  get '/present' => 'home#present'
 
   root 'home#index'
 

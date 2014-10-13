@@ -10,22 +10,21 @@ class Live.Artist
     "
 
     try
-      output_value = "var sketch = #{ Processing.compile(sketchCode).sourceCode };"
+      sketch = Processing.compile(sketchCode)
 
-      # console.log('[Artist]', sketchCode)
-      # console.log('[Artist compiled]', output_value)
+      if @processing?
+        @processing.exit()
 
-      eval(output_value)
-
-      # console.log('[Artist]', sketch)
-
-      @reload()
-      processingInstance = new Processing(@canvas, sketch)
+      @processing = new Processing(@canvas, sketch)
     catch e
       output_value = "Parser Error! Error was:\n" + e.toString();
 
+  fullscreen: ->
+    if(@canvas.requestFullScreen)
+      @canvas.requestFullScreen()
+    else if(@canvas.webkitRequestFullScreen)
+      @canvas.webkitRequestFullScreen()
+    else if(@canvas.mozRequestFullScreen)
+      @canvas.mozRequestFullScreen()
 
-  reload: ->
-    $(@canvas).replaceWith("<canvas id='js-canvas' class='render'></canvas>")
-    @canvas = document.getElementById('js-canvas')
 

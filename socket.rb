@@ -45,28 +45,40 @@ EM.run do
     channel = @channels[room_name] || (@channels[room_name] = EM::Channel.new)
     sid = channel.subscribe { |msg| ws.send(msg) }
 
-    @logger.info("#{sid} join #{room_name}")
+    @logger.info("#{user_name} joined #{room_name}")
 
     members = @members[room_name] || (@members[room_name] = {})
-    members[sid] = {
-      id: user_name,
-      code: ''
-    }
-
-    data = {
-      :user    => 'system',
-      :comment => "#{user_name} connected",
-      :connected_id => user_name,
-      :user_id => 0,
-      :members => members
-    }
-    @logger.info("send data " + data.inspect)
 
     if @channel_last_message[room_name]
       @logger.info("updating #{ sid } with last message")
       ws.send(@channel_last_message[room_name].to_json)
+    else
+      @logger.info("no last message available for #{ sid }")
     end
 
+    # only notify for non-presenters
+    if user_name !~ /presenter$/
+      members[sid] = {
+        id: user_name,
+        code: ''
+      }
+
+      data = {
+        user:    'system',
+        comment: "#{user_name} connected",
+        connected_id: user_name,
+        user_id: 0,
+        members: members
+      }
+    else
+      data = {
+        user: 'system',
+        comment: 'A presenter has connected',
+        members: members
+      }
+    end
+
+    @logger.info("send data " + data.inspect)
     channel.push data.to_json
 
     # messages from users
@@ -85,6 +97,7 @@ EM.run do
       members[sid][:code] = msg
 
       if user_name != 'system'
+        @logger.info "setting last message"
         @channel_last_message[room_name] = data
       end
 

@@ -15,8 +15,9 @@
 //= require underscore-min
 //= require init
 //= require socket_host
-//= require processing
 //
+//= require processing
+//= require webcam
 //= require ace
 //= require mode-java
 //= require theme-twilight

@@ -15,6 +15,20 @@ textarea {
   border: 1px solid black;
 }
 
+.presentation-panel {
+  .render {
+    width: 640px;
+    height: 480px;
+    border: 1px solid black;
+    display: block;
+    margin: 18px auto 0;
+  }
+
+  .messages {
+    margin-top: 32px;
+  }
+}
+
 .user-buttons {
   margin-top: 32px;
 
